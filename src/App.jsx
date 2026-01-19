@@ -18,7 +18,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-500 p-4">
       <SignedOut>
-        {fullUrl.includes("sign-in") ? <SignInPage /> : <SignUpPage setMode={setCurrentMode} currentMode={currentMode} />}
+        <SignInPage />
       </SignedOut>
       <SignedIn>
         {isSignedIn ? (

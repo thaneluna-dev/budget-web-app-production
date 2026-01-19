@@ -1,0 +1,41 @@
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Budget App Icon"
+>
+  <!-- Wallet body -->
+  <rect
+    x="6"
+    y="18"
+    width="52"
+    height="30"
+    rx="6"
+    fill="#16A34A"
+  />
+
+  <!-- Wallet flap -->
+  <rect
+    x="6"
+    y="14"
+    width="52"
+    height="10"
+    rx="6"
+    fill="#15803D"
+  />
+
+  <!-- Button -->
+  <circle
+    cx="46"
+    cy="33"
+    r="3"
+    fill="#DCFCE7"
+  />
+
+  <!-- Chart bars -->
+  <rect x="16" y="28" width="4" height="12" rx="1" fill="#ECFDF5" />
+  <rect x="24" y="24" width="4" height="16" rx="1" fill="#ECFDF5" />
+  <rect x="32" y="30" width="4" height="10" rx="1" fill="#ECFDF5" />
+</svg>

@@ -1,0 +1,45 @@
+{
+    "expenses": [
+        {
+            "label": "Transaction Type",
+            "name": "transactionType",
+            "fieldtype": "text",
+            "required": true
+        },
+        {
+            "label": "Amount",
+            "name": "amount",
+            "fieldtype": "currency",
+            "required": true
+        },
+        {
+            "label": "Notes",
+            "name": "notes",
+            "fieldtype": "text",
+            "required": false
+        }
+        
+    ],
+    "income": [
+        {
+            "label": "Source",
+            "name": "source",
+            "fieldtype": "text",
+            "required": true
+        },
+        {
+            "label": "Amount",
+            "name": "amount",
+            "fieldtype": "currency",
+            "required": true
+        }
+    ],
+    "budget": [
+        {
+            "label": "Amount",
+            "name": "budgetTotal",
+            "fieldtype": "currency",
+            "required": true
+        }
+    ]
+}

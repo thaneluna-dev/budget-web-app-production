@@ -7,10 +7,7 @@ export default function SignInPage() {
         Welcome to MoneyMate
       </h1>
       <SignIn
-        appearance={{ theme: "simple" }}
-        routing="virtual"
-        signInUrl="https://budget-web-app-production.vercel.app/sign-in"
-        signUpUrl="https://budget-web-app-production.vercel.app/sign-up"
+        signUpUrl="/sign-up"
       />
     </div>
   );

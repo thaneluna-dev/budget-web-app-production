@@ -6,6 +6,8 @@ import { Dashboard } from "./components/Dashboard";
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react";
 import SignUpPage from "./Pages/SignUpPage";
 import SignInPage from "./Pages/SignInPage";
+import AppRoutes from "./router/Routes";
+import { BrowserRouter } from "react-router-dom";
 
 export default function App() {
   // Track the active tab in the parent
@@ -14,11 +16,13 @@ export default function App() {
   const { isLoaded, isSignedIn, user } = useUser();
   const [currentMode, setCurrentMode] = useState("sign-up");
 
-  const fullUrl = window.location.href
+  const fullUrl = window.location.href;
   return (
     <div className="min-h-screen bg-gray-500 p-4">
       <SignedOut>
-        <SignInPage />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
       </SignedOut>
       <SignedIn>
         {isSignedIn ? (

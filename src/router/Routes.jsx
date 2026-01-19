@@ -5,8 +5,8 @@ import SignUpPage from "../Pages/SignUpPage";
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/sign-in" element={<SignInPage />} />
-      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="https://budget-web-app-production.vercel.app/sign-in" element={<SignInPage />} />
+      <Route path="https://budget-web-app-production.vercel.app/sign-up" element={<SignUpPage />} />
     </Routes>
   );
 }

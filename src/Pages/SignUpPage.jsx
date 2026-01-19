@@ -6,7 +6,7 @@ export default function SignUpPage({ setMode, currentMode}) {
       <h1 className="md:text-4xl font-bold mb-10 text-green-600">
         Welcome to MoneyMate
       </h1>
-      <SignUp appearance={{ theme: "simple" }} signInUrl="/sign-in" />
+      <SignUp signInUrl="https://budget-web-app-production.vercel.app/sign-in" />
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default function AppRoutes() {
   return (
     <Routes>
 
-      <Route path="https://budget-web-app-production.vercel.app/sign-in" element={<SignInPage />} />
+      <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/" element={<SignUpPage />} />
     </Routes>
   );

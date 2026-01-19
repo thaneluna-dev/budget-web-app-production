@@ -7,7 +7,7 @@ export default function SignInPage() {
         Welcome to MoneyMate
       </h1>
       <SignIn
-        signUpUrl="/sign-up"
+        signUpUrl="/"
       />
     </div>
   );

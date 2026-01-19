@@ -1,5 +1,4 @@
 import SignInPage from "./SignInPage";
-import "./SignInPage.css";
 import { SignIn, SignInButton, SignUp } from "@clerk/clerk-react";
 export default function SignUpPage({ setMode, currentMode}) {
   return (
@@ -7,7 +6,7 @@ export default function SignUpPage({ setMode, currentMode}) {
       <h1 className="md:text-4xl font-bold mb-10 text-green-600">
         Welcome to MoneyMate
       </h1>
-      <SignUp appearance={{ theme: "simple" }} routing="virtual" signInUrl="/sign-in" />
+      <SignUp appearance={{ theme: "simple" }} routing="virtual" signInUrl="https://budget-web-app-production.vercel.app//sign-in" />
     </div>
   );
 }

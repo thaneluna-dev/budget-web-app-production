@@ -9,8 +9,8 @@ export default function SignInPage() {
       <SignIn
         appearance={{ theme: "simple" }}
         routing="virtual"
-        signInUrl="/sign-in"
-        signUpUrl="/sign-up"
+        signInUrl="https://budget-web-app-production.vercel.app//sign-in"
+        signUpUrl="https://budget-web-app-production.vercel.app//sign-up"
       />
     </div>
   );

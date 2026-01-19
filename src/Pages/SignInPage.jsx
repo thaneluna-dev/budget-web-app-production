@@ -7,7 +7,7 @@ export default function SignInPage() {
         Welcome to MoneyMate
       </h1>
       <SignIn
-        signUpUrl="https://budget-web-app-production.vercel.app/sign-up"
+        signUpUrl="/sign-up"
       />
     </div>
   );

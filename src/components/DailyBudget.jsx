@@ -106,10 +106,10 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
               animate="center"
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              onClick={() =>{
+              onClick={() => {
                 window.innerWidth > 768 &&
-                setCardIndex((i) => (i === 0 ? 1 : 0))}
-              }
+                  setCardIndex((i) => (i === 0 ? 1 : 0));
+              }}
               drag={window.innerWidth < 768 ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
               onDragEnd={(e, { offset }) => {
@@ -138,6 +138,20 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
             >
               Set Budget
             </button>
+          </div>
+        )}
+        {isModalOpen && (
+          <div className="md:backdrop-blur-sm md:h-screen md:w-full md:fixed md:top-0 md:left-0 md:flex md:items-center md:justify-center">
+            <Modal
+              isOpen={isModalOpen}
+              onClose={handleCloseModal}
+              title={"Create Budget"}
+              width={100}
+              setValue={setBudgetAmount}
+              value={budgetAmount}
+              loadFunction={createNewBudget}
+              isBudget={true}
+            />
           </div>
         )}
       </div>

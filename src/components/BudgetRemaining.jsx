@@ -46,14 +46,8 @@ export default function BudgetRemaining({userEmail}) {
       {!loading && !hasBudget && (
         <div className="flex flex-col items-center gap-4">
           <p className="text-gray-500 text-sm text-center">
-            No budget has been created yet. Please create one.
+            No budget has been set. Please create one.
           </p>
-
-          <button
-            className="md:bg-green-600 md:text-white md:px-4 md:py-2 md:rounded-lg md:hover:bg-green-700 md:transition-colors md:duration-300"
-          >
-            Create a daily budget
-          </button>
         </div>
       )}
 

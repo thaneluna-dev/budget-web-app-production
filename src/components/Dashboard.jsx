@@ -62,6 +62,19 @@ export const Dashboard = ({ user }) => {
     // Add logic to handle the submitted transaction here
   };
 
+    const blockNumbers = (e) => {
+    if (/\d/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const blockNumbersOnPaste = (e) => {
+    const pasted = e.clipboardData.getData("text");
+    if (/\d/.test(pasted)) {
+      e.preventDefault();
+    }
+  };
+
   const daysInMonth = new Date(
     new Date().getFullYear(),
     new Date().getMonth() + 1,
@@ -140,6 +153,8 @@ export const Dashboard = ({ user }) => {
                       onChange={(e) =>
                         handleInputChange(item.name, e.target.value)
                       }
+                      onKeyDown={blockNumbers}
+                      onPaste={blockNumbersOnPaste}
                     />
                   )}
                 </div>

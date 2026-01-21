@@ -46,19 +46,15 @@ const Modal = ({
       <dialog
         ref={dialogRef}
         onClose={onClose}
-        className="md:bg-transparent md:border-0 bg-opacity-70 md:justify-self-center md:items-center md:flex md:h-screen"
+        className="bg-transparent border-0 bg-opacity-70 justify-self-center items-center flex h-screen w-screen justify-center"
       >
         <div
-          className={`md:bg-white md:rounded-lg md:shadow-lg md:w-600 md:max-w-lg max-w-xs`}
+          className={`bg-white rounded-lg shadow-lg md:w-600 md:max-w-lg md:w-screen`}
         >
-          <div className="m-6 md:flex justify-between">
-            <h2 className="text-xl font-bold text-black flex place-items-end">
+          <div className="m-6 flex justify-between md:max-w-lg md:max-w-xs">
+            <h2 className="text-xl font-bold text-black md:flex md:place-items-end">
               {title}
             </h2>
-            <MdCancel
-              onClick={onClose}
-              className="text-black text-3xl flex cursor-pointer"
-            />
           </div>
           {isIncome &&
             expenses.income.map((item) => (
@@ -76,16 +72,16 @@ const Modal = ({
                 handleInputChange={handleInputChange}
               />
             ))}
-          <div className="md:flex md:justify-end md:gap-4 divide-solid border-gray-100 rounded-none outline-none border-t-1 w-full p-5">
+          <div className="flex justify-end gap-4 divide-solid border-gray-100 rounded-none outline-none border-t-1 w-full p-5">
             <button
               onClick={onClose}
-              className="bg-white text-red-500 md:rounded-lg md:hover:bg-gray-300 md:transition-colors md:duration-300 md:w-35 md:h-12 px-4 py-2 border border-gray-500 inline-flex justify-center shadow-sm"
+              className="bg-white text-red-500 rounded-lg hover:bg-gray-300 transition-colors duration-300 md:w-35 md:h-12 h-10 px-4 py-2 border border-gray-500 inline-flex justify-center shadow-sm"
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
-              className="md:bg-green-500 md:rounded-lg md:hover:bg-transparent-200 md:transition-colors md:duration-300 md:w-35 md:h-12 justify-center shadow-sm text-white"
+              className="bg-green-500 rounded-md hover:bg-transparent-200 transition-colors duration-300 md:w-35 md:h-12 w-30 h-10 justify-center shadow-sm text-white"
             >
               Submit
             </button>

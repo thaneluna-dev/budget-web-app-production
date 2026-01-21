@@ -95,7 +95,7 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
 
   return (
     <>
-      <div className="font-bold md:text-lg text-gray-800 md:bg-white md:border md:border-gray-300 md:p-4 md:rounded-lg md:shadow md:p-6 md:row-span-1 col-end-2 bg-white border-gray-300 rounded-lg shadow p-6 mb-6 grid grid-cols-2">
+      <div className="font-bold md:text-lg text-gray-800 md:bg-white md:border md:border-gray-300 md:p-4 md:rounded-lg md:shadow md:p-6 md:row-span-1 col-end-2 bg-white border-gray-300 rounded-lg shadow p-6 mb-6 md:grid md:grid-cols-2">
         {hasBudget ? (
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
@@ -130,11 +130,11 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
             </motion.div>
           </AnimatePresence>
         ) : (
-          <div className="flex justify-between items-center">
+          <div className="flex md:justify-between md:items-center gap-4 sm:flex-row flex-col">
             <span className="text-gray-700">No Budget Set</span>
             <button
               onClick={handleOpenModal}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg self-center"
             >
               Set Budget
             </button>

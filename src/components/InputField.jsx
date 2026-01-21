@@ -21,7 +21,7 @@ export default function InputField({
   };
   return (
     <div className="px-8 pb-5">
-      <label className="block mb-1 font-semibold md:text-black pb-5">
+      <label className="block mb-1 font-semibold text-black pb-5">
         {item.label}
       </label>
       {item.fieldtype === "currency" && (
@@ -31,7 +31,7 @@ export default function InputField({
             type={item.fieldtype}
             key={item.name}
             required={item.required}
-            className="p-2 w-full mb-4 rounded md:border md:border-gray-300 md:focus:outline-none md:focus:ring-2 md:focus:ring-blue-500 md:focus:border-transparent md:caret-black text-black pl-8"
+            className="p-2 w-full mb-4 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent caret-black text-black pl-8"
             onChange={(e) => handleInputChange(item.name, e.target.value)}
             placeholder="0.00"
           />
@@ -42,7 +42,7 @@ export default function InputField({
           type={item.fieldtype}
           key={item.name}
           required={item.required}
-          className="p-2 w-full mb-4 rounded md:border md:border-gray-300 md:focus:outline-none md:focus:ring-2 md:focus:ring-blue-500 md:focus:border-transparent md:caret-black text-black"
+          className="p-2 w-full mb-4 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent caret-black text-black"
           onChange={(e) => handleInputChange(item.name, e.target.value)}
           onKeyDown={blockNumbers}
           onPaste={blockNumbersOnPaste}

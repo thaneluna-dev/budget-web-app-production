@@ -56,7 +56,7 @@ export default function TotalIncome({userEmail}) {
 
           <button
             onClick={handleOpenModal}
-            className="md:bg-green-600 md:text-white md:px-4 md:py-2 md:rounded-lg md:hover:bg-green-700 md:transition-colors md:duration-300"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors md:duration-300"
           >
             Create a total income
           </button>

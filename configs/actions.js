@@ -33,7 +33,7 @@ export async function getExpenses(owner = "") {
 }
 
 export async function getExpenseHistory(owner = "") {
-  return await db.select().from(expenseTable).orderBy(sql`createdAt DESC`).limit(5).where(eq(expenseTable.owner, owner));
+  return await db.select().from(expenseTable).orderBy(expenseTable.createdAt).limit(5).where(eq(expenseTable.owner, owner));
 }
 
 export async function getExpenseCount(owner = "") {

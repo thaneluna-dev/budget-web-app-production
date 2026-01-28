@@ -19,7 +19,7 @@ export const Dashboard = ({ user }) => {
   const [errorOpen, setErroOpen] = useState(false);
   const [value, setValue] = useState({});
   const [touchStarted, setTouchStarted] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [allExpenses, setAllExpenses] = useState([]);
 
   const [cardIndex, setCardIndex] = useState(0);
@@ -42,12 +42,21 @@ export const Dashboard = ({ user }) => {
   };
 
   const handleSubmit = async (e) => {
-    const count = await getBudgetCount(user);
-    if (count == 0) {
-      setErroOpen(true);
-    } else {
+    e.preventDefault();
+
+    if (isSubmitting) return; // prevent double submit
+    setIsSubmitting(true);
+
+    try {
+      const count = await getBudgetCount(user);
+
+      if (count === 0) {
+        setErroOpen(true);
+        return;
+      }
+
       console.log("Submitting transaction...");
-      e.preventDefault();
+
       await createExpense(
         value.transactionType,
         Number(value.amount),
@@ -55,8 +64,14 @@ export const Dashboard = ({ user }) => {
         user,
         new Intl.DateTimeFormat("en-US", options).format(new Date()),
       );
+
+      document.getElementById("transactionForm").reset();
+      setValue({});
+    } catch (err) {
+      console.error("Error submitting transaction:", err);
+    } finally {
+      setIsSubmitting(false);
     }
-    // Add logic to handle the submitted transaction here
   };
 
   const blockNumbers = (e) => {
@@ -177,7 +192,14 @@ export const Dashboard = ({ user }) => {
                 type="submit"
                 form="transactionForm"
               >
-                Add Transaction
+                {isSubmitting ? (
+                  <>
+                    <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Processing…
+                  </>
+                ) : (
+                  "Add Transaction"
+                )}
               </button>
             </form>
           </div>

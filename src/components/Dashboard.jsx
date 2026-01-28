@@ -9,7 +9,6 @@ import Balance from "./Balance";
 import DailyBudget from "./DailyBudget";
 import BudgetRemaining from "./BudgetRemaining";
 import { IoAddOutline } from "react-icons/io5";
-import { updateDaysRemaining } from "../Pages/UpdateDay";
 import { createExpense, getBudgetCount } from "../../configs/actions";
 import expenses from "../Shared/expenses.json";
 import ErrorModal from "./ErrorModal";
@@ -19,6 +18,7 @@ export const Dashboard = ({ user }) => {
   const [budget, setBudget] = useLocalStorage("budget", 0);
   const [errorOpen, setErroOpen] = useState(false);
   const [value, setValue] = useState({});
+  const [touchStarted, setTouchStarted] = useState(false);
 
   const [allExpenses, setAllExpenses] = useState([]);
 
@@ -31,41 +31,51 @@ export const Dashboard = ({ user }) => {
   };
 
   const options = {
-  timeZone: 'Pacific/Honolulu',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric',
-  hour12: true // or false for 24-hour format
-};
-
+    timeZone: "Pacific/Honolulu",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true, // or false for 24-hour format
+  };
 
   const handleSubmit = async (e) => {
     const count = await getBudgetCount(user);
     if (count == 0) {
       setErroOpen(true);
     } else {
+      console.log("Submitting transaction...");
       e.preventDefault();
-      e.stopPropagation();
       await createExpense(
         value.transactionType,
         Number(value.amount),
         value.notes,
         user,
-        new Intl.DateTimeFormat('en-US', options).format(new Date())
+        new Intl.DateTimeFormat("en-US", options).format(new Date()),
       );
-      window.location.reload();
-      onClose();
     }
     // Add logic to handle the submitted transaction here
   };
 
-    const blockNumbers = (e) => {
+  const blockNumbers = (e) => {
     if (/\d/.test(e.key)) {
       e.preventDefault();
     }
+  };
+
+  const handleTouchStart = (event) => {
+    setTouchStarted(true);
+    // Optional: prevent default browser actions like scrolling/panning
+    event.preventDefault();
+  };
+  const handleTouchEnd = (event) => {
+    setTouchStarted(false);
+    console.log("touch started");
+    handleSubmit(event);
+    // Optional: prevent default browser actions like scrolling/panning
+    event.preventDefault();
   };
 
   const blockNumbersOnPaste = (e) => {
@@ -74,20 +84,6 @@ export const Dashboard = ({ user }) => {
       e.preventDefault();
     }
   };
-
-  const daysInMonth = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    0,
-  ).getDate();
-
-  const currentDay = new Date().getDate();
-  const getCount = getBudgetCount(user);
-    getCount.then((res) => {
-      if (res > 0) {
-        updateDaysRemaining(user, daysInMonth - currentDay);
-      }
-    });
 
   // This is a placeholder for items that are added and created dynamically
   const items = ["Home Loan", "Car Loan", "Groceries"];
@@ -106,7 +102,12 @@ export const Dashboard = ({ user }) => {
           <TotalExpenses userEmail={user} />
         </div>
         <div className="md:grid md:gap-5 grid-cols-[600px]">
-          <DailyBudget userEmail={user} index={cardIndex} setShowWeekly={setShowWeekly} showWeekly={showWeekly} />
+          <DailyBudget
+            userEmail={user}
+            index={cardIndex}
+            setShowWeekly={setShowWeekly}
+            showWeekly={showWeekly}
+          />
           <BudgetRemaining userEmail={user} />
         </div>
         <div className="font-bold md:text-lg text-gray-800 bg-white border border-gray-300 md:p-4 rounded-lg shadow p-6 md:row-span-1">
@@ -115,12 +116,14 @@ export const Dashboard = ({ user }) => {
             <span className="inline-flex pb-5">Add Transaction</span>
             <form
               className="mt-5"
+              id="transactionForm"
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === 13) {
                   e.preventDefault();
                   handleSubmit(e);
                 }
               }}
+              onSubmit={handleSubmit}
             >
               {expenses.expenses.map((item) => (
                 <div key={item.name}>
@@ -160,8 +163,19 @@ export const Dashboard = ({ user }) => {
                 </div>
               ))}
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 transition-colors duration-300 mt-5"
-                onClick={handleSubmit}
+                className="    bg-blue-500 text-white px-6 py-4                
+    rounded-lg w-full
+    text-lg font-medium
+    transition-all duration-200
+    active:bg-blue-700
+    active:scale-[0.98]
+    focus:outline-none
+    focus-visible:ring-4
+    focus-visible:ring-blue-300
+    mt-5
+    touch-manipulation"
+                type="submit"
+                form="transactionForm"
               >
                 Add Transaction
               </button>

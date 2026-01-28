@@ -50,7 +50,6 @@ export default function BudgetRemaining({userEmail}) {
           </p>
         </div>
       )}
-
       {/* Budget exists (placeholder for future UI) */}
       {!loading && hasBudget && (
         <>

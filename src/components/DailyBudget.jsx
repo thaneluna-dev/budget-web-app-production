@@ -11,6 +11,7 @@ import { formatUSD } from "../Shared/FormatUSD.jsx";
 import Modal from "./Modal.jsx";
 import { FcRight } from "react-icons/fc";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { updateDaysRemaining } from "../Pages/UpdateDay";
 
 const variants = {
   enter: (direction) => ({
@@ -31,13 +32,16 @@ const variants = {
 };
 
 export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
-  const [hasBudget, setHasBudget] = useState(true);
+  const [hasBudget, setHasBudget] = useState(false);
   const [dailyBudget, setDailyBudget] = useState(0);
   const [budgetAmount, setBudgetAmount] = useState({});
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const direction = cardIndex === 0 ? -1 : 1;
+
+  const currentDay = new Date().getDate();
+  const getCount = getBudgetCount(userEmail);
 
   const daysInMonth = new Date(
     new Date().getFullYear(),
@@ -53,8 +57,7 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
         "Based on a " +
         daysInMonth +
         " day month." +
-        budgetAmount.days +
-        " days remaining.",
+        (budgetAmount.days ? budgetAmount.days + " days remaining." : ""),
     },
     {
       title: "Weekly Budget",
@@ -76,27 +79,44 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
     );
   };
 
+  const fetchBudgetAmount = async () => {
+    const amount = await getBudgetIncome(userEmail);
+    setBudgetAmount({
+      total: amount.total,
+      days: amount.days,
+    });
+  };
+
+  /* -------------------- INIT -------------------- */
+
   useEffect(() => {
-    async function checkBudget() {
+    async function init() {
       const count = await getBudgetCount(userEmail);
-      setHasBudget(count > 0);
+
+      if (count > 0) {
+        const remainingDays = daysInMonth - currentDay;
+
+        await updateDaysRemaining(userEmail, remainingDays);
+        await fetchBudgetAmount();
+
+        setHasBudget(true);
+      }
+
       setLoading(false);
     }
 
-    async function getBudgetAmount() {
-      const amount = await getBudgetIncome(userEmail);
-      setBudgetAmount({ total: amount.total, days: amount.days });
-      setLoading(false);
-    }
-
-    getBudgetAmount();
-    checkBudget();
-  }, []);
+    if (userEmail) init();
+  }, [userEmail]);
 
   return (
     <>
       <div className="font-bold md:text-lg text-gray-800 md:bg-white md:border md:border-gray-300 md:p-4 md:rounded-lg md:shadow md:p-6 md:row-span-1 col-end-2 bg-white border-gray-300 rounded-lg shadow p-6 mb-6 md:grid md:grid-cols-2">
-        {hasBudget ? (
+        {loading && !hasBudget && (
+          <div className="flex items-center justify-center">
+            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+        {hasBudget && (
           <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={cardIndex}
@@ -129,16 +149,6 @@ export default function DailyBudget({ userEmail, showWeekly, setShowWeekly }) {
               </p>
             </motion.div>
           </AnimatePresence>
-        ) : (
-          <div className="flex md:justify-between md:items-center gap-4 sm:flex-row flex-col">
-            <span className="text-gray-700">No Budget Set</span>
-            <button
-              onClick={handleOpenModal}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg self-center"
-            >
-              Set Budget
-            </button>
-          </div>
         )}
         {isModalOpen && (
           <div className="md:backdrop-blur-sm md:h-screen md:w-full md:fixed md:top-0 md:left-0 md:flex md:items-center md:justify-center">

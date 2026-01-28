@@ -2,7 +2,7 @@
 
 import { db } from "./index.js";
 import { budgetTable, expenseTable, incomeTable } from "./schema.js";
-import { sql, eq } from "drizzle-orm";
+import { sql, eq, desc } from "drizzle-orm";
 
 export async function getIncomeCount(owner = "") {
   const result = await db
